@@ -105,16 +105,17 @@ public class BookStore {
     }
 
     // Method to search for a book by bookID
-    public void searchBook(String bookID) {
+    public int searchBook(String bookID) {
         for (BookDetails book : BookDetails.values()) {
             if (book.getBookID().equals(bookID)) {
                 
             }
         }
+        return 0;
     }
 
     // Method to order a book
-    public void orderBook(int i) {
+    public int orderBook(int i) {
         
         if (i == 1) {
             System.out.println("You have chosen to rent the book for one month.");
@@ -130,6 +131,7 @@ public class BookStore {
         else {
             System.out.println("InvalbookID choice. Please try again.");
             }
+        return i;
         }
     
          public String getUserID(){
@@ -147,5 +149,9 @@ public class BookStore {
             System.out.println("User contact:"+getEmailAddress());
             System.out.println("Transaction type:"+getorderType());
             System.out.println("Transaction amount:"+gettransactionAmount());
+        }
+        public void emailAddress(String firstName2, String lastName2, String emailAddress2) {
+            // TODO Auto-generated method stub
+            throw new UnsupportedOperationException("Unimplemented method 'emailAddress'");
         }
     }

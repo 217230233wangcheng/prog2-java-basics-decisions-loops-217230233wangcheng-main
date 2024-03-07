@@ -1,69 +1,56 @@
 package prog2.spring2024.exercise2;
 
-import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-
+        System.out.println("Welcome to Turn-A-New-Leaf Bookstore!");
         System.out.print("Enter your first name: ");
-        String FirstName = scanner.nextLine();
+        String firstName = scanner.nextLine();
 
         System.out.print("Enter your last name: ");
-        String LastName = scanner.nextLine();
+        String lastName = scanner.nextLine();
 
         System.out.print("Enter your email address: ");
-        String EmailAddress = scanner.nextLine();
+        String emailAddress = scanner.nextLine();
 
-        BookStore Store;
-        Store = new BookStore(FirstName,LastName,EmailAddress);
-        Store.emailAddress(FirstName,LastName,EmailAddress);
-        Store.setUserID();
-        Store.displayBookList();
-        Store.orderConfirmation();
+        BookStore customer = new BookStore(firstName, lastName, emailAddress);
+        customer.setUserID();
+        System.out.println("Enter one book ID to order:");
 
-        while (true) {
-            System.out.print("Enter your choice (1 to rent, 2 to purchase, 3 to exit): ");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
-            if (choice == 3) {
-                break;
-            }
-
-         System.out.print("Enter the book ID you want to order : ");
-            String bookID = scanner.nextLine();
-
-
-
-            Store.searchBook(bookID);
-
-        if (choice == 1) {
-            System.out.print("Enter the book ID you want to order : ");
-            bookID = scanner.nextLine();
-
-
-
-            Store.searchBook(bookID);
-
-            System.out.println("You have chosen to rent the book.");
-            System.out.println("The rent is for one month, and the charge is €5.");
-            System.out.println("After one month, the book will not be available to you.");
-
-            Store.orderBook(1);
-            Store.orderConfirmation();
-        } else if (choice == 2) {
-            System.out.println("You have chosen to purchase the book.");
-            System.out.println("Your account will be charged the amount of the book.");
-            Store.orderBook(2);
-            Store.orderConfirmation();
-        } else {
-                System.out.println("Invalid choice. Please try again.");
-            }
+        for (BookStore.BookDetails book : BookStore.BookDetails.values()) {
+            System.out.println(book.getBookID() + ": " + book.getBookName() + "written by " + book.getBookAuthor());
         }
+
+        System.out.print("Enter your choice: ");
+        String choice1 = scanner.nextLine();
+        int flag1=customer.searchBook(choice1);
+        while(flag1==-1){
+            System.out.print("Enter your choice: ");
+            choice1 = scanner.nextLine();
+            flag1=customer.searchBook(choice1);
+        }
+        System.out.println("How you would like to order the book?");
+        System.out.println("1. Rent the book");
+        System.out.println("2. Purchase the book");
+        System.out.println("3. Exit");
+        int choice2=scanner.nextInt();
+        int flag2=customer.orderBook(choice2);
+        while (flag2 == -1) {
+            System.out.println("How you would like to order the book?");
+            System.out.println("1. Rent the book");
+            System.out.println("2. Purchase the book");
+            System.out.println("3. Exit");
+            choice2=scanner.nextInt();
+            flag2=(int) customer.orderBook(choice2);
+        }
+        if(flag2==1) {
+            System.exit(0);
+        }
+            customer.orderConfirmation();
+
+        scanner.close();
     }
 }
-
-
-
